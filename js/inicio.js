@@ -1,46 +1,52 @@
 $(document).ready(function () {
-  // INCIALIZAMOS EL MENU HAMBURGUESA
-  $('.button-collapse').sideNav();
 
   var $textArea1 = $('#textarea1');
   var $btnPost = $('#btnPost');
   var $board = $('#board');
-  var $btnImage = $('#btnImage');
   var $file = $('#file');
-  var $date = moment().format('LT')
-  // Evento para poder postear texto
+  moment.locale('es');
+  var $date = moment().format('lll');
+  var img;
 
-  var $prependtexto;
+//Menu Hamburguesa
+  $('.button-collapse').sideNav();
 
+//Cursor automaticamente aparecerá en el textarea
+  $textArea1.focus();
+
+//Habillita y dehabilita botón
+  $textArea1.on('input', function() {
+     if ($textArea1.val() == '') {
+        $btnPost.addClass('disabled');
+     } else {
+        $btnPost.removeClass("disabled");
+     }
+   });
+
+//funcion postear
   $btnPost.on('click', function() {
-    var $text = $textArea1.val();
-    $prependtexto = $($board).prepend('<form class=\'col s12\'><div class=\'row\'><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'><p>' + $text + '</p><span class="date">'+ $date +'</span></div></div></form>');
-    localStorage.textprepend = $prependtexto;
-    $prependtexto;
+    if ($file.val() == ''){
+      var $text = $textArea1.val();
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p></div></div></form>');
+      $textArea1.val('');
+      $btnPost.addClass('disabled');
+    } else {
+      var $text = $textArea1.val();
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p><img src="'+ img +'"></div></div></form>');
+      $textArea1.val('');
+      $btnPost.addClass('disabled');
+    }
   });
 
-  $file.on('change', function(evet) {
-    var file = event.target.files[0];
+//Cargar imagenes
+  $file.on('change', function(eve) {
+    var file = eve.target.files[0];
     var fr = new FileReader();
     fr.onload = function(ev) {
-      $($board).prepend('<form class="col s12"><div class="row"><div class="col s2"><img src="../assets/images/user.jpg" class="circle responsive-img"></div><div class="col s10"><p><img id="im" class="imageUpload"></p></div></div></form>');
-      $('#im').attr('src', ev.target.result);
+     var img = ev.target.result;
     };
-    $file.val('');
+    $btnPost.removeClass("disabled");
     fr.readAsDataURL(file);
-  });;
-
-  // $($board).prepend(localStorage.textprepend);
- 
-  // $btnPost.on('click', function(){
-
-  // })
-
-  // $btnImage.on('click', function() {
-  //    var $path = $file.val();
-  //    var $image = $path.substring($path.lastIndexOf('\\') + 1, $path.length);
-  //    console.log($image);
-  //    $($board).prepend('<form class="col s12"><div class="row"><div class="col s2"><img src="../assets/images/user.jpg" class="circle responsive-img"></div><div class="col s10"><p><img class="imageUpload" src="../assets/images/' + $image + '"></p></div></div></form>');
-  //  });
+  });
 
 });

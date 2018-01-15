@@ -5,15 +5,40 @@
 	padding: 0;
 	font-family: 'Raleway', sans-serif;
 }
-
+body{
+  background: #F6F6CE;
+}
+.first-part, .second-part{
+background: #fff;
+border-radius: 10px;
+padding: 0 20px;
+}
+.second-part{
+  padding: 15px;
+}
 .img-post{
   width: 100%;
 }
-
 main{
   margin-top: 20px;
 }
-
+#textarea1{
+max-width: 90%;
+}
+#label{
+  left: 5%;
+}
+#camera{
+  position: relative;
+  bottom: 13px;
+  right: 5px;
+}
+#camera1{
+  line-height: 1.5px;
+}
+#camera2{
+height: 2.5rem; 
+}
 /* FÍN CLASES REUTILIZABLES */
 .container-flex-row {
 	display: flex;
@@ -117,7 +142,7 @@ nav {
 /* .logo-logo{
   max-width: 100%;
   font-family: 'Pacifico', cursive;
-  
+
 } */
 /* FIN CLASES PRIMARY */
 
