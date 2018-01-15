@@ -7,6 +7,7 @@ $(document).ready(function () {
   var img = 'holu';
   var $comment = $('#comment');
   var $commentBox = $('#commentBox');
+  var $btnComment = $('#btnComment');
   moment.locale('es');
   var $date = moment().format('lll');
 
@@ -28,7 +29,6 @@ $(document).ready(function () {
 //funcion postear
   $btnPost.on('click', function() {
     if ($file.val() == ''){
-      alert ('hola');
       var $text = $textArea1.val();
       $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><br><p>' + $text + '</p></div></div></form>');
       $textArea1.val('');
@@ -54,16 +54,19 @@ $(document).ready(function () {
     fileReader.readAsDataURL(file);
   });
 
-//Aparición de input para Comentar
-  $commentBox.on('click', function (){
-    $($comment).replaceWith( "<input id='commentHere' type='text' placeholder='Comenta aquí...' value=''>" );
-  })
-
-  $('#commentHere').on('input', function() {
-    if ($commentHere.val() == '') {
+//habilitar boton para Comentar
+  $comment.on('input', function (){
+    if ($comment.val() == '') {
        $btnComment.addClass('disabled');
     } else {
-       $btnComment.removeClass('disabled');
+       $btnComment.removeClass("disabled");
     }
   });
+
+//Postear comentarios
+$btnComment.on('click', function() {
+  var text = $comment.val();
+  $('#postComment'). prepend('<div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><br><p>' + text + '</p></div>');
+  $comment.val('');
+});
 });
