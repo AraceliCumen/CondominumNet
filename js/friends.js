@@ -6,6 +6,6 @@ $(document).ready(function() {
   $('.email').text(localStorage.email);
 
   $('.btn-agregar').on('click', function(event) {
-    $('.btn-agregar').text('Amigos');
+  $(this).text($(this).text() == 'Agregar' ? 'Amigos' : 'Agregar')
   });
-});  
+});
