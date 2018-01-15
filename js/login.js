@@ -89,6 +89,10 @@ $(document).ready(function() {
     firebase.auth().signInWithPopup($provider).then(function(result) {
       window.location.href = 'start.html';
       console.log(result.user);
+      // guardando la imagen y nombre;
+      localStorage.photo = result.user.photoURL;
+      localStorage.name = result.user.displayName;
+      localStorage.id = result.user.uid;
       guardarFirebase(result.user);
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;

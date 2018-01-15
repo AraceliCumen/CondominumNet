@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
 </head>
+
 <body class="">
   <header>
     <nav>
@@ -67,10 +69,10 @@
           <li>
             <div class="user-view">
               <div class="background">
-                <img src="../assets/images/portada.jpg">
+                <img id="foto-portada" src="../assets/images/portada.jpg">
               </div>
               <a href="#!user">
-                <img class="circle" src="../assets/images/user.jpg">
+                <img id="foto-user" class="circle foto-user" src="../assets/images/user.jpg">
               </a>
               <a href="#!name">
                 <span class="white-text name">John Doe</span>
@@ -132,7 +134,7 @@
     <div class="container">
       <div class="row ">
         <div class="col s12">
-          <img id="img-profile" src="../assets/images/user.jpg" alt="" class="center-align circle responsive-img">
+          <img id="img-profile" src="../assets/images/user.jpg" alt="" class="center-align circle responsive-img foto-user">
           <form action="#">
             <div class="file-field input-field">
               <div class="btn">
@@ -172,20 +174,27 @@
         </thead>
         <tbody>
           <tr>
-            <td>John Doe</td>
-            <td>jdandturk@gmail.com</td>
-            <td>Dueño</td>
-            <td>Torre A 404</td>
+            <td id="td-name">John Doe</td>
+            <td id="td-mail">jdandturk@gmail.com</td>
+            <td id="td-type">Dueño</td>
+            <td id="td-torre">Torre A 404</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <!-- <div id="btn-signup" class="col s12">
-      <a href="signUp.html" class="btn waves-effect waves-purple btn-primary">c</a>
-    </div> -->
+    <div id="btn-changedata" class="col s12">
+      <a href="#modal-change" class="btn waves-effect waves-purple btn-primary">c</a>
+    </div>
     </div>
     </div>
   </main>
+  <!--modal iniciar cambiar datos-->
+  <div id="modal-change" class="modal">
+    <div class="modal-content teal">
+      <i class="material-icons right modal-close">close</i>
+    </div>
+  </div>
+  <!-- Fín modal cambiar datos-->
   <!-- Inicio Enlace BD -->
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
   <!-- Fin Enlace BD -->

@@ -31,6 +31,7 @@ $(document).ready(function() {
   var $checkAcepted = $('#filled-in-box');
   var $btnSignup = $('#btn-signup');
   var $btnLogGoogle = $('#btn-google');
+  
   // variable booleanas para la activación del boton
   var validateUsername = false;
   var validateType = false;
@@ -42,7 +43,7 @@ $(document).ready(function() {
 
   // Aqui indicar que se puede implementar la función como variable
   function activeButton() {
-    if (validateUsername && validateType && validatetorredepart && validateEmail && validatePassword && validateChecked && validateConfirmPassword) {
+    if (validateUsername && validateType && validatetorredepart && validateEmail && validatePassword && validateConfirmPassword && validateChecked) {
       $btnSignup.removeClass('disabled');
     }
   }
@@ -50,25 +51,28 @@ $(document).ready(function() {
     $btnSignup.addClass('disabled');
   }
 
-  $txttype.on('input', function(event) {
-    if ($(this).val().length > 5) {
-      validateType = true;
-    }
-    // console.log($(this).val().length);
-    console.log(validateType);
-  });
-
   $txtUsername.on('input', function(event) {
     if ($(this).val().length > 2) {
       validateUsername = true;
+      localStorage.name = $(this).val();
     }
     // console.log($(this).val().length);
     console.log(validateUsername);
   });
 
+  $txttype.on('input', function(event) {
+    if ($(this).val().length > 5) {
+      validateType = true;
+      localStorage.type = $(this).val();
+    }
+    // console.log($(this).val().length);
+    console.log(validateType);
+  });
+
   $txttorredepart.on('input', function(event) {
     if ($(this).val().length <= 12) {
       validatetorredepart = true;
+      localStorage.departament = $(this).val();
     }
     // console.log($(this).val().length);
     console.log(validatetorredepart);
@@ -80,6 +84,7 @@ $(document).ready(function() {
     // console.log(REGEXEMAIL.test($(this).val()));
     // console.log($(this).val());
     if (REGEXEMAIL.test($(this).val())) {
+      localStorage.mail = $(this).val();
       validateEmail = true;
       activeButton();
     } else {
@@ -92,6 +97,7 @@ $(document).ready(function() {
   $txtPassword.on('input', function() {
     console.log($($txtPassword).val());
     if ($(this).val().length >= 6) {
+      localStorage.password = $(this).val();
       validatePassword = true;
     }
     // console.log($(this).val().length);
@@ -102,6 +108,7 @@ $(document).ready(function() {
     // console.log($(this).val());
     if ($(this).val().length >= 6 && ($($txtPassword).val() === $($txtconfirmPassword).val())) {
       validateConfirmPassword = true;
+      localStorage.confirmpassword = $(this).val();
     }
     // console.log($(this).val().length);
     console.log(validateConfirmPassword);
@@ -109,7 +116,7 @@ $(document).ready(function() {
 
 
   $checkAcepted.on('click', function(event) {
-    // console.log(event.target);
+    console.log(event.target.checked);
     if (event.target.checked) {
       validateChecked = true;
       activeButton();
@@ -140,6 +147,11 @@ $(document).ready(function() {
     firebase.auth().signInWithPopup($provider).then(function(result) {
       window.location.href = 'start.html';
       console.log(result.user);
+      // guardando la imagen y nombre;
+      localStorage.photo = result.user.photoURL;
+      localStorage.name = result.user.displayName;
+      localStorage.id = result.user.uid;
+      localStorage.email = result.user.email;
       guardarFirebase(result.user);
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;

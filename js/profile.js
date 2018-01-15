@@ -1,6 +1,10 @@
 $(document).ready(function() {
   // INCIALIZAMOS EL MENU HAMBURGUESA
   $('.button-collapse').sideNav();
+  // Iniciar modal
+  $('#modal-change').modal();
+
+
   // Initialize Firebase
   var config = {
     apiKey: 'AIzaSyDazYh5bEK6rNBj1X6VGa1QFuN_wsvUSs4',
@@ -17,6 +21,8 @@ $(document).ready(function() {
   var $imgProfile = $('#img-profile');
   var $nameUser = $('#name-user');
   var $uploader = 0;
+
+  $('.foto-user').attr('src', localStorage.photo);
 
   // var arrUser = [];
   // $.each(data, function(i, item) {
@@ -36,13 +42,15 @@ $(document).ready(function() {
   //     console.log(data.users[i].name);
   //   }
   // }
+
+  // para cargar la foto a firebase
   $btnProfile.on('change', function(event) {
     // Obtener el archivo
     var $file = event.target.files[0];
     // creamos una storage ref
     var $storageRef = firebase.storage().ref('profile_photo/' + $file.name);
     $imgProfile.removeAttr('src');
-    // $imgProfile.attr('src', firebase.storage().ref('profile_photo/' + $file.name));
+    console.log(event.target.result);
     // subir archivo
     var $task = $storageRef.put($file);
     $task.on('state_changed',
@@ -55,5 +63,6 @@ $(document).ready(function() {
       },
       function complete() {
       });
+    $imgProfile.attr('src', event.target.result);
   });
 });
