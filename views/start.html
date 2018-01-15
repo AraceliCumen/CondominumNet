@@ -151,7 +151,7 @@
                       <input id="file" type="file" multiple="1">
                     </div>
                     <div class="file-path-wrapper">
-                      <input class="file-path validate" type="text" placeholder="Upload">
+                      <input id="input2" class="file-path validate" type="text" placeholder="Upload">
                     </div>
                   </div>
                 </form>
@@ -159,12 +159,12 @@
       </div>
     </div>
   </div>
-
     <br>
     <br>
     <div class="container">
       <div id="board" class="row">
         <form class="col s12">
+
           <div class="row second-part">
             <div class="col s2">
               <img src="../assets/images/user.jpg" alt="" class="circle responsive-img">
@@ -174,6 +174,22 @@
               <p>Mi Primer Post</p>
               <img class="img-post" src="../assets/images/portada.jpg" alt="">
             </div>
+            <div class="col s8">
+
+              <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div id="commentBox" class="collapsible-header">
+                <i class="material-icons">comment</i>
+                <p id="comment">Comentarios</p>
+                </div>
+              <div class="collapsible-body">
+              </div>
+            </li>
+            </ul>
+            </div>
+            <div id="btnSend" class="col s4 center">
+              <a class="waves-effect waves-light btn btn-primary disabled" id="btnComment">Enviar</a>
+          </div>
           </div>
         </form>
       </div>

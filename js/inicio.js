@@ -1,12 +1,14 @@
 $(document).ready(function () {
-
+  var $input2 = $('#input2');
   var $textArea1 = $('#textarea1');
   var $btnPost = $('#btnPost');
   var $board = $('#board');
   var $file = $('#file');
+  var img = 'holu';
+  var $comment = $('#comment');
+  var $commentBox = $('#commentBox');
   moment.locale('es');
   var $date = moment().format('lll');
-  var img;
 
 //Menu Hamburguesa
   $('.button-collapse').sideNav();
@@ -26,27 +28,42 @@ $(document).ready(function () {
 //funcion postear
   $btnPost.on('click', function() {
     if ($file.val() == ''){
+      alert ('hola');
       var $text = $textArea1.val();
-      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p></div></div></form>');
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><br><p>' + $text + '</p></div></div></form>');
       $textArea1.val('');
       $btnPost.addClass('disabled');
     } else {
       var $text = $textArea1.val();
-      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p><img src="'+ img +'"></div></div></form>');
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><br><p>' + $text + '</p><img class="imageUpload" src="'+ img +'"></div></div></form>');
       $textArea1.val('');
       $btnPost.addClass('disabled');
+      $input2.val('');
+      img = '';
     }
   });
 
 //Cargar imagenes
-  $file.on('change', function(eve) {
-    var file = eve.target.files[0];
-    var fr = new FileReader();
-    fr.onload = function(ev) {
-     var img = ev.target.result;
+  $file.on('change', function(event) {
+    var file = event.target.files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = function(event2) {
+      img = event2.target.result;
     };
     $btnPost.removeClass("disabled");
-    fr.readAsDataURL(file);
+    fileReader.readAsDataURL(file);
   });
 
+//Aparición de input para Comentar
+  $commentBox.on('click', function (){
+    $($comment).replaceWith( "<input id='commentHere' type='text' placeholder='Comenta aquí...' value=''>" );
+  })
+
+  $('#commentHere').on('input', function() {
+    if ($commentHere.val() == '') {
+       $btnComment.addClass('disabled');
+    } else {
+       $btnComment.removeClass('disabled');
+    }
+  });
 });
