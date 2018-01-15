@@ -1,5 +1,4 @@
-$(document).ready(function () {
-
+$(document).ready(function() {
   var $textArea1 = $('#textarea1');
   var $btnPost = $('#btnPost');
   var $board = $('#board');
@@ -8,45 +7,45 @@ $(document).ready(function () {
   var $date = moment().format('lll');
   var img;
 
-//Menu Hamburguesa
+  // Menu Hamburguesa
   $('.button-collapse').sideNav();
 
-//Cursor automaticamente aparecerá en el textarea
+  // Cursor automaticamente aparecerá en el textarea
   $textArea1.focus();
 
-//Habillita y dehabilita botón
+  // Habillita y dehabilita botón
   $textArea1.on('input', function() {
-     if ($textArea1.val() == '') {
-        $btnPost.addClass('disabled');
-     } else {
-        $btnPost.removeClass("disabled");
-     }
-   });
+    if ($textArea1.val() === '') {
+      $btnPost.addClass('disabled');
+    } else {
+      $btnPost.removeClass('disabled');
+    }
+  });
 
-//funcion postear
+  // funcion postear
   $btnPost.on('click', function() {
-    if ($file.val() == ''){
+    if ($file.val() === '') {
       var $text = $textArea1.val();
-      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p></div></div></form>');
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>' + '<span class="date">' + $date + '</span><br><p>' + $text + '</p></div></div></form>');
       $textArea1.val('');
       $btnPost.addClass('disabled');
     } else {
       var $text = $textArea1.val();
-      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>'+'<span class="date">'+ $date +'</span><br><p>' + $text + '</p><img src="'+ img +'"></div></div></form>');
+      $($board).prepend('<form class=\'col s12\'><div class=\'row second-part\' ><div class=\'col s2\'><img src=\'../assets/images/user.jpg\' class=\'circle responsive-img\'></div><div class=\'col s10\'>' + '<span class="date">' + $date + '</span><br><p>' + $text + '</p><img src="' + img + '"></div></div></form>');
       $textArea1.val('');
       $btnPost.addClass('disabled');
     }
   });
 
-//Cargar imagenes
+  // Cargar imagenes
   $file.on('change', function(eve) {
     var file = eve.target.files[0];
     var fr = new FileReader();
     fr.onload = function(ev) {
-     var img = ev.target.result;
+      var img = ev.target.result;
+      console.log(img);
     };
-    $btnPost.removeClass("disabled");
+    $btnPost.removeClass('disabled');
     fr.readAsDataURL(file);
   });
-
 });

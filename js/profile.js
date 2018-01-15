@@ -17,6 +17,7 @@ $(document).ready(function() {
   var $imgProfile = $('#img-profile');
   var $nameUser = $('#name-user');
   var $uploader = 0;
+
   // var arrUser = [];
   // $.each(data, function(i, item) {
   //   arrUser.push(i);

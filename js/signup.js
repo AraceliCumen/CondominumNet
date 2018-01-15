@@ -67,7 +67,7 @@ $(document).ready(function() {
   });
 
   $txttorredepart.on('input', function(event) {
-    if ($(this).val().length === 11) {
+    if ($(this).val().length <= 12) {
       validatetorredepart = true;
     }
     // console.log($(this).val().length);
@@ -140,6 +140,7 @@ $(document).ready(function() {
     firebase.auth().signInWithPopup($provider).then(function(result) {
       window.location.href = 'start.html';
       console.log(result.user);
+      guardarFirebase(result.user);
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       // The signed-in user info.
@@ -155,5 +156,18 @@ $(document).ready(function() {
       var credential = error.credential;
       // ...
     });
+
+    // funcion para guardar en firebase los datos de quien entra
+    function guardarFirebase(user) {
+      var usuario = {
+        uid: user.uid,
+        nombre: user.displayName,
+        foto: user.photoURL,
+        mail: user.email,
+        seguidores: 31,
+      };
+      firebase.database().ref('usuarios/' + user.uid).set(usuario);
+      // window.location.href = '../views/profile.html';
+    }
   });
 });

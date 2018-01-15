@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
   // Initialize Firebase
   var config = {
     apiKey: 'AIzaSyDazYh5bEK6rNBj1X6VGa1QFuN_wsvUSs4',
@@ -70,7 +70,7 @@ $(document).ready(function () {
 
     var $promise = $auth.signInWithEmailAndPassword($email, $pass);
     $promise.catch(event => alert(event.message));
-    
+
 
     // Validamos que no entre si es que no ingresa un usuario valido
     firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -89,6 +89,7 @@ $(document).ready(function () {
     firebase.auth().signInWithPopup($provider).then(function(result) {
       window.location.href = 'start.html';
       console.log(result.user);
+      guardarFirebase(result.user);
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       // The signed-in user info.
@@ -104,5 +105,18 @@ $(document).ready(function () {
       var credential = error.credential;
       // ...
     });
+
+    // funcion para guardar en firebase los datos de quien entra
+    function guardarFirebase(user) {
+      var usuario = {
+        uid: user.uid,
+        nombre: user.displayName,
+        foto: user.photoURL,
+        mail: user.email,
+        seguidores: 31,
+      };
+      firebase.database().ref('usuarios/' + user.uid).set(usuario);
+      // window.location.href = '../views/profile.html';
+    }
   });
 });
