@@ -2,4 +2,5 @@
 $(document).ready(function() {
   $('.button-collapse').sideNav();
   $('.foto-user').attr('src', localStorage.photo);
+  $('.name').attr('src', localStorage.name);
 });  

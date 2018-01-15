@@ -65,4 +65,124 @@ $(document).ready(function() {
       });
     $imgProfile.attr('src', event.target.result);
   });
+
+  // Obtener Elementos
+  var $txtUsername = $('#name');
+  var $txttype = $('#type');
+  var $txttorredepart = $('#torredepart');
+  var $txtEmail = $('#email');
+  var $txtPassword = $('#password');
+  var $txtconfirmPassword = $('#confirm-password');
+  var $checkAcepted = $('#filled-in-box');
+  var $btnSignup = $('#btn-signup');
+  var $btnLogGoogle = $('#btn-google');
+  
+  // variable booleanas para la activación del boton
+  var validateUsername = false;
+  var validateType = false;
+  var validatetorredepart = false;
+  var validateEmail = false;
+  var validatePassword = false;
+  var validateConfirmPassword = false;
+  var validateChecked = false;
+
+  // Aqui indicar que se puede implementar la función como variable
+  function activeButton() {
+    if (validateUsername && validateType && validatetorredepart && validateEmail && validatePassword && validateConfirmPassword && validateChecked) {
+      $btnSignup.removeClass('disabled');
+    }
+  }
+  function desactiveButton() {
+    $btnSignup.addClass('disabled');
+  }
+
+  $txtUsername.on('input', function(event) {
+    if ($(this).val().length > 2) {
+      validateUsername = true;
+      localStorage.name = $(this).val();
+    }
+    // console.log($(this).val().length);
+    console.log(validateUsername);
+  });
+
+  $txttype.on('input', function(event) {
+    if ($(this).val().length > 5) {
+      validateType = true;
+      localStorage.type = $(this).val();
+    }
+    // console.log($(this).val().length);
+    console.log(validateType);
+  });
+
+  $txttorredepart.on('input', function(event) {
+    if ($(this).val().length <= 12) {
+      validatetorredepart = true;
+      localStorage.departament = $(this).val();
+    }
+    // console.log($(this).val().length);
+    console.log(validatetorredepart);
+  });
+
+  $txtEmail.on('input', function(event) {
+    // console.log(event.target.value);
+    var REGEXEMAIL = /^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+    // console.log(REGEXEMAIL.test($(this).val()));
+    // console.log($(this).val());
+    if (REGEXEMAIL.test($(this).val())) {
+      localStorage.mail = $(this).val();
+      validateEmail = true;
+      activeButton();
+    } else {
+      desactiveButton();
+    };
+    // console.log($(this).val().length);
+    console.log(validateEmail);
+  });
+
+  $txtPassword.on('input', function() {
+    console.log($($txtPassword).val());
+    if ($(this).val().length >= 6) {
+      localStorage.password = $(this).val();
+      validatePassword = true;
+    }
+    // console.log($(this).val().length);
+    console.log(validatePassword);
+  });
+
+  $txtconfirmPassword.on('input', function() {
+    // console.log($(this).val());
+    if ($(this).val().length >= 6 && ($($txtPassword).val() === $($txtconfirmPassword).val())) {
+      validateConfirmPassword = true;
+      localStorage.confirmpassword = $(this).val();
+    }
+    // console.log($(this).val().length);
+    console.log(validateConfirmPassword);
+  });
+
+
+  $checkAcepted.on('click', function(event) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      validateChecked = true;
+      activeButton();
+    } else {
+      desactiveButton();
+    }
+    console.log(validateChecked);
+  });
+
+  var $auth = firebase.auth();
+
+  // añadivos evento al signup
+  $btnSignup.on('click', function(event) {
+    // Obtnemos los valores de los campos
+    // var $userName = $txtUsername.val();
+    // var $lastName = $txtLastName.val();
+    // var $email = $txtEmail.val();
+    // var $pass = $txtPassword.val();
+    // var $promise = $auth.createUserWithEmailAndPassword($email, $pass);
+    // $promise.catch(event => alert(event.message));
+    // window.location.href = 'start.html';
+    
+  });
 });
