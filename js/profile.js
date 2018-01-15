@@ -23,6 +23,8 @@ $(document).ready(function() {
   var $uploader = 0;
 
   $('.foto-user').attr('src', localStorage.photo);
+  $('.name').text(localStorage.name);
+  $('.email').text(localStorage.email);
 
   // var arrUser = [];
   // $.each(data, function(i, item) {
@@ -44,12 +46,24 @@ $(document).ready(function() {
   // }
 
   // para cargar la foto a firebase
+  // var TableDataBase = firebase.storage().ref('profile_photo');
   $btnProfile.on('change', function(event) {
+    // if (this.files && this.files[0]) {
+    //   var file = new FileReader();
+    //   file.onload = function(e) {
+    //     TableDataBase.push({
+    //       url: e.target.result,
+    //     });
+    //     // visualizar imagen
+    //     $imgProfile.attr('src', event.target.result);      
+    //   };
+    //   file.readAsDataURL(this.files[0]);
+    // }
     // Obtener el archivo
     var $file = event.target.files[0];
     // creamos una storage ref
     var $storageRef = firebase.storage().ref('profile_photo/' + $file.name);
-    $imgProfile.removeAttr('src');
+    // $imgProfile.removeAttr('src');
     console.log(event.target.result);
     // subir archivo
     var $task = $storageRef.put($file);
@@ -57,13 +71,14 @@ $(document).ready(function() {
       function progress(snapshot) {
         var $percentage = (snapshot.bytesTransferred / snapshot.totalButes) * 100;
         $uploader = $percentage;
-        console.log($uploader);
+        var downloadURL = $storageRef.snapshot;
+        console.log(downloadURL);
       },
       function error(err) {
       },
       function complete() {
       });
-    $imgProfile.attr('src', event.target.result);
+    $imgProfile.attr('src', this.files[0]);
   });
 
   // Obtener Elementos
@@ -183,6 +198,6 @@ $(document).ready(function() {
     // var $promise = $auth.createUserWithEmailAndPassword($email, $pass);
     // $promise.catch(event => alert(event.message));
     // window.location.href = 'start.html';
-    
+
   });
 });

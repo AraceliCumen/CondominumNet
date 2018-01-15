@@ -15,6 +15,8 @@ $(document).ready(function() {
   $('.button-collapse').sideNav();
 
   $('.foto-user').attr('src', localStorage.photo);
+  $('.name').text(localStorage.name);
+  $('.email').text(localStorage.email);
 
   // Cursor automaticamente aparecerá en el textarea
   $textArea1.focus();
